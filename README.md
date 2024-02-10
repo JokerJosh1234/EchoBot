@@ -1,23 +1,22 @@
 # EchoBot
 
-### To-Do
-- [x] d
-- [ ] d
-- [ ] d
+> [!NOTE]
+> Text commands cannot use ephemeral (hide messages from other users) so be careful what information you show.
 
 > [!TIP]
-> To host the bot, navigate to the [deployment guide](https://discordnet.dev/guides/deployment/deployment.html) from discordnet.dev
+> To host the bot, navigate to the [deployment guide](https://discordnet.dev/guides/deployment/deployment.html)
 
 <details>
 <summary>Built-in Commands</summary>
-
-### Slash Commands
 - If a usage is encased in [], it means theres multiple variants of the command
+  
+### Slash Commands
 
 | Command | Description | Usage |
 | --- | --- | --- |
 | Ban | Bans a spedified user from the guild | /ban `user` `reason` `keep_messages` |
-| SelectMenuExample | Displays a SelectmMenu and how to use it | /SelectMenuExample |
+| ModalExample | Displays a Modal and how to use it | /modal-example |
+| SelectMenuExample | Displays a SelectmMenu and how to use it | /select-menu-example |
 
 ### Text Commands
 - Assuming '?' is the set prefix.
