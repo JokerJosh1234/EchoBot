@@ -1,6 +1,6 @@
-# EchoBot - A Guide to Your Discord Bot Companion
+# EchoBot - A simple way to add a bot to your Discord server
 
-Welcome to the **EchoBot** README, your comprehensive guide to unleashing the full potential of this Discord bot. EchoBot is designed to enhance your Discord experience by adding custom slash and text commands, making your server interaction more dynamic and efficient. 
+**EchoBot** is designed to be a way for c# experienced coders to easily make a custom discord bot. 
 
 > **Tip:** For bot hosting instructions, refer to the [deployment guide](https://discordnet.dev/guides/deployment/deployment.html).
 
