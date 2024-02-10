@@ -102,18 +102,18 @@ EchoBot has built-in commands to help developers setup and use custom commands.
 
 ### Slash Commands
 
-| Command            | Description                               | Usage                                        |
-|--------------------|-------------------------------------------|----------------------------------------------|
-| `Ban`                | Bans a specified user from the guild      | `/ban <user> <reason> <keep_messages>`       |
-| `ModalExample`       | Demonstrates a Modal and its usage        | `/modal-example`                             |
-| `SelectMenuExample`  | Shows a SelectMenu and its usage          | `/select-menu-example`                       |
+| Command            | Description                             | Usage                                        |
+|--------------------|-----------------------------------------|----------------------------------------------|
+| `Ban`              | Bans a specified user from the guild    | `/ban <user> <reason> <keep_messages>`       |
+| `ModalExample`     | Demonstrates a Modal and its usage      | `/modal-example`                             |
+| `SelectMenuExample`| Shows a SelectMenu and its usage        | `/select-menu-example`                       |
 
 ### Text Commands
 
 For Text Commands, the prefix `?` is used here as an example. The actual prefix can be configured to any character or string according to your servers settings.
 
-| Command         | Description                                                      | Usage                                               |
-|-----------------|------------------------------------------------------------------|-----------------------------------------------------|
+| Command           | Description                                                      | Usage                                               |
+|-------------------|------------------------------------------------------------------|-----------------------------------------------------|
 | `Avatar`          | Displays the user's profile picture                              | `?avatar` <br> `?avatar <user>`                     |
 | `GuildInfo`       | Shows information about the guild                                | `?guild-info`                                       |
 | `Lockdown`        | Locks down all or specified channels accessible to everyone      | `?lockdown` <br> `?lockdown <channel>` <br> `?lockdown end` |
@@ -125,4 +125,25 @@ Commands enclosed in angle brackets `< >` are placeholders for the user to repla
 
 </details>
 
-Happy coding!
+## PlayFab Integration
+EchoBot offers an already made PlayFab API Integration
+<details>
+  
+  <summary>Setup and Download</summary>
+<br>
+
+  You can download the integration [here](https://github.com/JokerJosh1234/EchoBot-PlayFab-Integration), once downloaded extract it into youre bot folder
+  
+  Then navigate to the `Playfab.cs` script and change the `TitleId` to your playfab title id, and the `X_SecretKey` to your playfab titles secret key.
+  
+</details>
+
+## Community made Plugins
+Community made Plugins/Integrations will showup here
+<!-- No Plugins Yet
+| Name           | Description              | Link           |
+|----------------|--------------------------|----------------|
+| | | | -->
+#### DM joker.josh on discord to submit a plugin
+
+### Happy coding!
