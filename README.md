@@ -141,3 +141,9 @@ Share and discover plugins made by the EchoBot community.
 ## Contributing
 
 Your contributions are welcome! Feel free to submit pull requests or suggest features to enhance EchoBot's capabilities.
+
+## Credits
+
+| User               | Contribution                            | 
+|--------------------|-----------------------------------------|
+| JokerJosh          | Creator                                 |
