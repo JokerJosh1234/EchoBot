@@ -1,34 +1,37 @@
 # EchoBot
 
-> [!NOTE]
-> Text commands cannot use ephemeral (hide messages from other users) so be careful what information you show.
+> **Note:** Ephemeral messages (messages that are hidden from other users) cannot be used with text commands. Please be cautious about the information you display.
 
-> [!TIP]
-> To host the bot, navigate to the [deployment guide](https://discordnet.dev/guides/deployment/deployment.html)
+> **Tip:** For bot hosting instructions, refer to the [deployment guide](https://discordnet.dev/guides/deployment/deployment.html).
 
 <details>
 <summary>Built-in Commands</summary>
-- If a usage is encased in [], it means theres multiple variants of the command
-  
+<br>
+EchoBot has built-in commands to help developers setup and use custom commands.
+
 ### Slash Commands
 
-| Command | Description | Usage |
-| --- | --- | --- |
-| Ban | Bans a spedified user from the guild | /ban `user` `reason` `keep_messages` |
-| ModalExample | Displays a Modal and how to use it | /modal-example |
-| SelectMenuExample | Displays a SelectmMenu and how to use it | /select-menu-example |
+Slash commands offer a modern, integrated way to use bot features directly from the chat input box in Discord, providing users with immediate access to bot functionalities.
+
+| Command            | Description                               | Usage                                        |
+|--------------------|-------------------------------------------|----------------------------------------------|
+| `Ban`                | Bans a specified user from the guild      | `/ban <user> <reason> <keep_messages>`       |
+| `ModalExample`       | Demonstrates a Modal and its usage        | `/modal-example`                             |
+| `SelectMenuExample`  | Shows a SelectMenu and its usage          | `/select-menu-example`                       |
 
 ### Text Commands
-- Assuming '?' is the set prefix.
 
-| Command | Description | Usage |
-| --- | --- | --- |
-| Avatar | Displays the users profile picture | [?avatar] [?avatar `user`] |
-| GuildInfo | Displays info about a guild | ?guild-info |
-| Lockdown | Lockdown all channels that everyone has access to, or a specified one.  not recommended for practical use. requires fine tuning to your guilds needs, although it should work for most cases. | [?lockdown]  [?lockdown `channel`]  [?lockdown end] |
-| MentionExample | Example on how to work with mentions in a text command | [?mention] [?mention `user`] [?mention `role`] [?mention `channel`] |
-| Ping | Determine the ping/latency of the bot | ?ping |
-| User | Displays info on a user | [?user] [?user `user`] |
+Text commands are prefixed with a specific character (e.g., `?`) and allow users to interact with the bot through traditional text-based input.
 
-  
+| Command         | Description                                                      | Usage                                               |
+|-----------------|------------------------------------------------------------------|-----------------------------------------------------|
+| `Avatar`          | Displays the user's profile picture                              | `?avatar` <br> `?avatar <user>`                     |
+| `GuildInfo`       | Shows information about the guild                                | `?guild-info`                                       |
+| `Lockdown`        | Locks down all or specified channels accessible to everyone      | `?lockdown` <br> `?lockdown <channel>` <br> `?lockdown end` |
+| `MentionExample`  | Demonstrates working with mentions in a text command             | `?mention` <br> `?mention <user>` <br> `?mention <role>` <br> `?mention <channel>` |
+| `Ping`            | Determines the bot's ping/latency                                | `?ping`                                             |
+| `User`            | Provides information on a user                                   | `?user` <br> `?user <user>`                         |
+
+Commands enclosed in angle brackets `< >` are placeholders for the user to replace with specific details. Commands listed with multiple lines indicate alternative usages or options.
+
 </details>
