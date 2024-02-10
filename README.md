@@ -1,6 +1,6 @@
 # EchoBot - A simple way to add a bot to your Discord server
 
-**EchoBot** is designed to be a way for c# experienced coders to easily make a custom discord bot. 
+**EchoBot** is designed to be a way for c# coders to easily make a custom discord bot. 
 
 > **Tip:** For bot hosting instructions, refer to the [deployment guide](https://discordnet.dev/guides/deployment/deployment.html).
 
