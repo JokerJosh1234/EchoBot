@@ -142,26 +142,14 @@ Commands with `< >` are placeholders for user-specific input.
 </p>
 </details>
 
-## PlayFab Integration
-
-EchoBot supports PlayFab API integration to connect to your PlayFab title and moderate players and/or the title data.
-
-<details>
-<summary><b>Setup and Download</b></summary>
-<p>
-
-Download the integration [here](https://github.com/JokerJosh1234/EchoBot-PlayFab-Integration). 
-
-Import into your project/application.
-
-Configure the `Playfab.cs` script with your PlayFab `TitleId` and `X_SecretKey`.
-
-</p>
-</details>
-
 ## Community-Made Plugins
 
-Share and discover plugins made by the community. There are none yet.
+Share and discover plugins made by the community.
+
+| Plugin           | Description                                                      | Download                                                                              | 
+|-------------------|------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| `PlayFab Integration`          | PlayFab API integration to connect to your PlayFab title and moderate players and/or the title data                              | [link](https://github.com/JokerJosh1234/EchoBot-PlayFab-Integration)  |
+| `ChatGPT Plugin`       | Integrate ChatGPT into your bot                                | [link](https://github.com/JokerJosh1234/EchoBot-PlayFab-Integration)     |
 
 > **Note:** To submit a plugin, DM [joker.josh](https://discord.com/users/791550177780563998) on Discord.
 
