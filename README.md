@@ -128,14 +128,14 @@ EchoBot facilitates command setup and customization with built-in options.
 
 Text commands use a configurable prefix, demonstrated here as `?`.
 
-| Command           | Description                                                      | Usage                                               |
-|-------------------|------------------------------------------------------------------|-----------------------------------------------------|
-| `Avatar`          | Displays the user's profile picture                              | `?avatar` <br> `?avatar <user>`                     |
-| `GuildInfo`       | Shows information about the guild                                | `?guild-info`                                       |
-| `Lockdown`        | Locks down all or specified channels accessible to everyone      | `?lockdown` <br> `?lockdown <channel>` <br> `?lockdown end` |
+| Command           | Description                                                      | Usage                                                                              |
+|-------------------|------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| `Avatar`          | Displays the user's profile picture                              | `?avatar` <br> `?avatar <user>`                                                    |
+| `GuildInfo`       | Shows information about the guild                                | `?guild-info`                                                                      |
+| `Lockdown`        | Locks down all or specified channels accessible to everyone      | `?lockdown` <br> `?lockdown <channel>` <br> `?lockdown end`                        |
 | `MentionExample`  | Demonstrates working with mentions in a text command             | `?mention` <br> `?mention <user>` <br> `?mention <role>` <br> `?mention <channel>` |
-| `Ping`            | Determines the bot's ping/latency                                | `?ping`                                             |
-| `User`            | Provides information on a user                                   | `?user` <br> `?user <user>`                         |
+| `Ping`            | Determines the bot's ping/latency                                | `?ping`                                                                            |
+| `User`            | Provides information on a user                                   | `?user` <br> `?user <user>`                                                        |
 
 Commands with `< >` are placeholders for user-specific input.
 
@@ -144,7 +144,7 @@ Commands with `< >` are placeholders for user-specific input.
 
 ## PlayFab Integration
 
-EchoBot supports PlayFab API integration for enhanced functionality.
+EchoBot supports PlayFab API integration to connect to your PlayFab title and moderate players and/or the title data.
 
 <details>
 <summary><b>Setup and Download</b></summary>
@@ -169,4 +169,4 @@ Plugins offer a platform for the community to share and distribute their creatio
 
 ## Credits
 
-EchoBot was created by [joker.josh](https://discord.com/users/791550177780563998) (aka JokerJosh)
+EchoBot was created by [JokerJosh](https://discord.com/users/791550177780563998)
