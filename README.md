@@ -3,14 +3,26 @@
 **EchoBot** offers an easy way for C# developers to create a custom Discord bot, streamlining the process with simplicity and efficiency in mind.
 
 [![Deployment Guide](https://img.shields.io/badge/Deployment-Guide-blue.svg)](https://discordnet.dev/guides/deployment/deployment.html) 
-
 ## Table of Contents
+- [Setup](#setup)
 - [Custom Slash Command Creation](#custom-slash-command-creation)
-- [Text Commands: A Parallel Universe](#text-commands-a-parallel-universe)
 - [Built-in Commands](#built-in-commands)
 - [PlayFab Integration](#playfab-integration)
 - [Community-Made Plugins](#community-made-plugins)
-- [Contributing](#contributing)
+
+## Setup
+
+- Step 1. Create a Console Application
+
+- Step 2. Install Discord.Net, instructions can be found [here](https://discordnet.dev/guides/getting_started/installing.html)
+
+- Step 3. Setup your bot, instructions can be found [here](https://discordnet.dev/guides/getting_started/first-bot.html) - Do not worry about the `Connecting to Discord` step or anything after.
+
+- Step 4. Download EchoBot's files and import it into your project/application.
+
+- Step 5. Navigate to the `Hub.cs` script and modify the token param to match your bots token. You can also change the prefix, which is used for text commands.
+
+- Step 6. Have Fun!
 
 ## Custom Slash Command Creation
 
@@ -76,9 +88,9 @@ public class Example : SlashCommand
 </p>
 </details>
 
-## Text Commands: A Parallel Universe
+### Text Commands: A Parallel Universe
 
-> **Note:** Ephemeral messages are not compatible with text commands. Exercise discretion.
+> **Note:** Ephemeral messages are not compatible with text commands. Be careful with the information you show.
 
 Text commands are derived from the `TextCommand` class and use a `SocketCommandContext` for execution.
 
@@ -127,23 +139,23 @@ EchoBot supports PlayFab API integration for enhanced functionality.
 <summary>Setup and Download</summary>
 <p>
 
-Download the integration [here](https://github.com/JokerJosh1234/EchoBot-PlayFab-Integration). Configure the `Playfab.cs` script with your PlayFab `TitleId` and `X_SecretKey`.
+Download the integration [here](https://github.com/JokerJosh1234/EchoBot-PlayFab-Integration). 
+
+Import into your project/application.
+
+Configure the `Playfab.cs` script with your PlayFab `TitleId` and `X_SecretKey`.
 
 </p>
 </details>
 
 ## Community-Made Plugins
 
-Share and discover plugins made by the EchoBot community.
+Share and discover plugins made by the community. There are none yet.
 
-> **Note:** To submit a plugin, DM joker.josh on Discord.
+> **Note:** To submit a plugin, DM [joker.josh](https://discord.com/users/791550177780563998) on Discord.
 
-## Contributing
-
-Your contributions are welcome! Feel free to submit pull requests or suggest features to enhance EchoBot's capabilities.
+Plugins offer a platform for the community to share and distribute their creations. Examples of plugins include moderation toolkits, featuring a wide array of commands designed to enhance and streamline moderation tasks.
 
 ## Credits
 
-| User               | Contribution                            | 
-|--------------------|-----------------------------------------|
-| JokerJosh          | Creator                                 |
+EchoBot was created by [joker.josh](https://discord.com/users/791550177780563998) (aka JokerJosh)
