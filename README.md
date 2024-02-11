@@ -2,7 +2,8 @@
 
 **EchoBot** offers an easy way for C# developers to create a custom Discord bot, streamlining the process with simplicity and efficiency in mind.
 
-[![Deployment Guide](https://img.shields.io/badge/Deployment-Guide-blue.svg)](https://discordnet.dev/guides/deployment/deployment.html) 
+[![Deployment Guide](https://img.shields.io/badge/Deployment-Guide-blue.svg)](https://discordnet.dev/guides/deployment/deployment.html)
+
 ## Table of Contents
 - [Setup](#setup)
 - [Custom Slash Command Creation](#custom-slash-command-creation)
@@ -11,18 +12,28 @@
 - [Community-Made Plugins](#community-made-plugins)
 
 ## Setup
+1. **Create a Console Application**
+2. **Install Discord.Net**, instructions can be found [here](https://discordnet.dev/guides/getting_started/installing.html)
+3. **Setup your bot**, instructions can be found [here](https://discordnet.dev/guides/getting_started/first-bot.html) - Do not worry about the `Connecting to Discord` step or anything after.
+4. **Download EchoBot's files** and import it into your project/application.
+5. **Navigate to the `Hub.cs` script** and modify the token param to match your bot's token. You can also change the prefix, which is used for text commands.
+6. **Have Fun!**
 
-- Step 1. Create a Console Application
+## Overview
 
-- Step 2. Install Discord.Net, instructions can be found [here](https://discordnet.dev/guides/getting_started/installing.html)
+<details>
+<summary><b>Hub.cs</b>: This script manages the bot's functions and contains methods for modifying the bot.</summary>
 
-- Step 3. Setup your bot, instructions can be found [here](https://discordnet.dev/guides/getting_started/first-bot.html) - Do not worry about the `Connecting to Discord` step or anything after.
+- `Hub.client`
+- `Hub.SetActivity(<name> <type> <flags> <details>)`
+- `Hub.SetCustomStatus(<status>)`
+- `Hub.SetGameStatus(<status> <streamUrl> <activity>)`
+- `Hub.Logout()`
+</details>
 
-- Step 4. Download EchoBot's files and import it into your project/application.
+`Extensions.cs`: Contains quality of life extension methods that just make things easier.
 
-- Step 5. Navigate to the `Hub.cs` script and modify the token param to match your bots token. You can also change the prefix, which is used for text commands.
-
-- Step 6. Have Fun!
+`Context.cs`: Manages contexts for when a modal or select menu is created; data gets removed when it is not needed anymore. This design makes coding modals and select menus easier.
 
 ## Custom Slash Command Creation
 
@@ -111,6 +122,7 @@ EchoBot facilitates command setup and customization with built-in options.
 | `Ban`              | Bans a specified user from the guild    | `/ban <user> <reason> <keep_messages>`       |
 | `ModalExample`     | Demonstrates a Modal and its usage      | `/modal-example`                             |
 | `SelectMenuExample`| Shows a SelectMenu and its usage        | `/select-menu-example`                       |
+| `Echo`             | Sends a message as the bot              | `/echo`                                      |
 
 ### Text Commands
 
@@ -125,7 +137,6 @@ Text commands use a configurable prefix, demonstrated here as `?`.
 | `Ping`            | Determines the bot's ping/latency                                | `?ping`                                             |
 | `User`            | Provides information on a user                                   | `?user` <br> `?user <user>`                         |
 
-
 Commands with `< >` are placeholders for user-specific input.
 
 </p>
@@ -136,7 +147,7 @@ Commands with `< >` are placeholders for user-specific input.
 EchoBot supports PlayFab API integration for enhanced functionality.
 
 <details>
-<summary>Setup and Download</summary>
+<summary><b>Setup and Download</b></summary>
 <p>
 
 Download the integration [here](https://github.com/JokerJosh1234/EchoBot-PlayFab-Integration). 
