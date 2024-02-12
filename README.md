@@ -146,10 +146,10 @@ Commands with `< >` are placeholders for user-specific input.
 
 Share and discover plugins made by the community.
 
-| Plugin           | Description                                                      | Download                                                                              | 
-|-------------------|------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| <p style="font-size:5px;">`PlayFab Integration`</p>          | PlayFab API integration to connect to your PlayFab title and moderate players and/or the title data                              | [link](https://github.com/JokerJosh1234/EchoBot-PlayFab)  |
-| `ChatGPT Plugin`       | Integrate ChatGPT into your bot                                | [link](https://github.com/JokerJosh1234/EchoBot-ChatGPT)     |
+| Plugin        | Description                                                      | Download                                                                              | 
+|---------------|------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| `PlayFab`     | PlayFab API integration to connect to your PlayFab title and moderate players and/or the title data | [link](https://github.com/JokerJosh1234/EchoBot-PlayFab)  |
+| `ChatGPT`     | Integrate ChatGPT into your bot                                  | [link](https://github.com/JokerJosh1234/EchoBot-ChatGPT)   |
 
 > **Note:** To submit a plugin, DM [joker.josh](https://discord.com/users/791550177780563998) on Discord.
 
