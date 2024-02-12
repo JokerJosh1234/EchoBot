@@ -6,9 +6,9 @@
 
 ## Table of Contents
 - [Setup](#setup)
+- [Overview](#overview)
 - [Custom Slash Command Creation](#custom-slash-command-creation)
 - [Built-in Commands](#built-in-commands)
-- [PlayFab Integration](#playfab-integration)
 - [Community-Made Plugins](#community-made-plugins)
 
 ## Setup
@@ -148,8 +148,8 @@ Share and discover plugins made by the community.
 
 | Plugin           | Description                                                      | Download                                                                              | 
 |-------------------|------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| `PlayFab Integration`          | PlayFab API integration to connect to your PlayFab title and moderate players and/or the title data                              | [link](https://github.com/JokerJosh1234/EchoBot-PlayFab-Integration)  |
-| `ChatGPT Plugin`       | Integrate ChatGPT into your bot                                | [link](https://github.com/JokerJosh1234/EchoBot-PlayFab-Integration)     |
+| `PlayFab Integration`          | PlayFab API integration to connect to your PlayFab title and moderate players and/or the title data                              | [link](https://github.com/JokerJosh1234/EchoBot-PlayFab)  |
+| `ChatGPT Plugin`       | Integrate ChatGPT into your bot                                | [link](https://github.com/JokerJosh1234/EchoBot-ChatGPT)     |
 
 > **Note:** To submit a plugin, DM [joker.josh](https://discord.com/users/791550177780563998) on Discord.
 
