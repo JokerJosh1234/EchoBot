@@ -36,6 +36,8 @@
 
 `Context.cs`: Manages contexts for when a modal or select menu is created; data gets removed when it is not needed anymore. This design makes coding modals and select menus easier.
 
+The inherit class `Event` is used not as a command, but has a callback hub. It contains callbacks like ReceivedMessage (commonly known as 'onMessageCreate') and over 60 more callbacks.
+
 ## Custom Slash Command Creation
 
 Easily add your own custom slash commands with EchoBot by following a streamlined process designed for C# developers.
@@ -145,7 +147,7 @@ Commands with `< >` are placeholders for user-specific input.
 
 ## Community-Made Plugins
 
-Share and discover plugins made by the community.
+Share and discover plugins made by the community. Plugins can also be a way for developers to learn the API.
 
 | Plugin        | Description                                                      | Download                                                                              | 
 |---------------|------------------------------------------------------------------|---------------------------------------------------------------------------------------|
