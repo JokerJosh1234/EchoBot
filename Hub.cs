@@ -16,12 +16,19 @@ public class Hub
     // prefix for text commands
     private const char prefix = '?';
     // this can be found on youre bot application under 'Bot'. You may have to reset the token.
-    private const string token = "";
+    private const string token = "MTIwMzMyOTIzMTYzNjAxMzA4Nw.G5Ym-V.rGgob-PTsJP2zlkIqCk8XoFxFSGUpJr5tfZfFE";
 
     public static async Task Main(string[] args) => await new Hub().MainAsync();
 
+
+    public List<SlashCommand> slashCommands = new List<SlashCommand>();
+    public List<TextCommand> textCommands = new List<TextCommand>();
+    public List<Event> events = new List<Event>();
+
     public async Task MainAsync()
     {
+        RefreshCommands();
+
         client = new DiscordSocketClient(new DiscordSocketConfig
         {
             GatewayIntents = GatewayIntents.Guilds | GatewayIntents.GuildMessages | GatewayIntents.DirectMessages | GatewayIntents.MessageContent | GatewayIntents.GuildMembers | GatewayIntents.GuildPresences | GatewayIntents.GuildVoiceStates
@@ -34,9 +41,43 @@ public class Hub
         client.SelectMenuExecuted += SelectMenuExecuted;
         client.ModalSubmitted += ModalSubmitted;
 
+        SubscribeToEventCallbacks();
+        
         await Login();
 
         await Task.Delay(-1);
+    }
+
+    public void RefreshCommands()
+    {
+        textCommands = LoadTextCommands();
+        slashCommands = LoadSlashCommandBuilders();
+        events = LoadEvents();
+    }
+
+    private List<Event> LoadEvents()
+    {
+        var commandBuilders = new List<Event>();
+        var assembly = Assembly.GetExecutingAssembly();
+
+        foreach (var type in assembly.GetTypes())
+        {
+            if (type.IsSubclassOf(typeof(Event)) && !type.IsAbstract)
+            {
+                var constructor = type.GetConstructor(Type.EmptyTypes);
+                if (constructor != null)
+                {
+                    var commandBuilderInstance = (Event)constructor.Invoke(null);
+                    if (commandBuilderInstance != null)
+                    {
+                        commandBuilders.Add(commandBuilderInstance);
+                        Console.WriteLine($"Loaded event");
+                    }
+                }
+            }
+        }
+
+        return commandBuilders;
     }
 
     public static async Task Login()
@@ -64,7 +105,7 @@ public class Hub
         {
             if (slashCommandContext.Type == ComponentType.ActionRow)
             {
-                slashCommandContext.Context.OnModal(arg);
+                slashCommandContext.slashCommand.OnModal(arg);
                 Context.interactionContexts.TryRemove(arg.Data.CustomId, out _);
             }
             else
@@ -78,7 +119,7 @@ public class Hub
         {
             if (slashCommandContext.Type == ComponentType.SelectMenu)
             {
-                slashCommandContext.Context.OnSelectMenu(arg);
+                slashCommandContext.slashCommand.OnSelectMenu(arg);
                 Context.interactionContexts.TryRemove(arg.Data.CustomId, out _);
             }
             else
@@ -88,7 +129,7 @@ public class Hub
             await arg.RespondAsync("Error: Command context not found.");
     }
 
-    private static async Task HandleCommandAsync(SocketMessage messageParam)
+    private async Task HandleCommandAsync(SocketMessage messageParam)
     {
         var message = messageParam as SocketUserMessage;
         if (message == null) return;
@@ -100,9 +141,8 @@ public class Hub
 
         var context = new SocketCommandContext(client, message);
 
-        var commands = LoadTextCommands();
         var commandName = message.Content.Substring(argPos).Split(' ').First();
-        TextCommand slashCommand = commands?.Find(x => x.command.Name == commandName);
+        TextCommand slashCommand = textCommands?.Find(x => x.command.Name == commandName);
         if (slashCommand == null) return;
 
         if (message.Channel.GetChannelType() != ChannelType.DM)
@@ -124,12 +164,11 @@ public class Hub
             slashCommand?.Execute(context);
     }
 
-    private static async Task SlashCommandHandler(SocketSlashCommand command)
+    private async Task SlashCommandHandler(SocketSlashCommand command)
     {
         try
         {
-            var commands = LoadSlashCommandBuilders();
-            SlashCommand slashCommand = commands?.Find(x => x.command.Name == command.CommandName);
+            SlashCommand slashCommand = slashCommands?.Find(x => x.command.Name == command.CommandName);
             if (slashCommand == null) return;
             slashCommand?.Execute(command);
             Console.WriteLine($"Executed slash command: {command.CommandName}");
@@ -181,6 +220,7 @@ public class Hub
                     if (commandBuilderInstance != null)
                     {
                         commandBuilders.Add(commandBuilderInstance);
+                        Console.WriteLine($"Loaded text command {commandBuilderInstance.command.Name}");
                     }
                 }
             }
@@ -189,19 +229,18 @@ public class Hub
         return commandBuilders;
     }
 
-    private static async Task Client_Ready()
+    private async Task Client_Ready()
     {
-        var commands = LoadSlashCommandBuilders();
-        if (commands == null)
+        if (slashCommands == null)
             Console.WriteLine($"No commands found");
 
         try
         {
             List<ApplicationCommandProperties> applicationCommandProperties = new List<ApplicationCommandProperties>();
-            for (int i = 0; i < commands.Count; i++)
+            for (int i = 0; i < slashCommands.Count; i++)
             {
-                applicationCommandProperties.Add(commands[i].command.Build());
-                Console.WriteLine($"Loaded slash command {commands[i].command.Name}");
+                applicationCommandProperties.Add(slashCommands[i].command.Build());
+                Console.WriteLine($"Loaded slash command {slashCommands[i].command.Name}");
             }
             await client.BulkOverwriteGlobalApplicationCommandsAsync(applicationCommandProperties.ToArray());
         }
@@ -215,4 +254,68 @@ public class Hub
     public static async Task SetActivity(string name, ActivityType type, ActivityProperties flags, string details) => await client.SetActivityAsync(new Game(name, type, flags, details));
     public static async Task SetCustomStatus(string status) => await client.SetCustomStatusAsync(status);
     public static async Task SetGameStatus(string status, string streamUrl = null, ActivityType activity = ActivityType.Playing) => await client.SetGameAsync(status, streamUrl, activity);
+
+    public void SubscribeToEventCallbacks()
+    {
+        foreach(Event x in events)
+        {
+            client.Ready += x.Ready;
+            client.SlashCommandExecuted += x.SlashCommandExecuted;
+            client.MessageReceived += x.MessageReceived;
+            client.SelectMenuExecuted += x.SelectMenuExecuted;
+            client.ModalSubmitted += x.ModalSubmitted;
+            client.AutocompleteExecuted += x.AutocompleteExecuted;
+            client.MessageCommandExecuted += x.MessageCommandExecuted;
+            client.UserCommandExecuted += x.UserCommandExecuted;
+            client.ButtonExecuted += x.ButtonExecuted;
+            client.InteractionCreated += x.InteractionCreated;
+            client.InviteDeleted += x.InviteDeleted;
+            client.InviteCreated += x.InviteCreated;
+            client.PresenceUpdated += x.PresenceUpdated;
+            client.RecipientRemoved += x.RecipientRemoved;
+            client.RecipientAdded += x.RecipientAdded;
+            client.UserIsTyping += x.UserIsTyping;
+            client.CurrentUserUpdated += x.CurrentUserUpdated;
+            client.VoiceServerUpdated += x.VoiceServerUpdated;
+            client.UserVoiceStateUpdated += x.UserVoiceStateUpdated;
+            client.GuildMemberUpdated += x.GuildMemberUpdated;
+            client.UserUpdated += x.UserUpdated;
+            client.UserUnbanned += x.UserUnbanned;
+            client.UserBanned += x.UserBanned;
+            client.UserLeft += x.UserLeft;
+            client.ApplicationCommandCreated += x.ApplicationCommandCreated;
+            client.ThreadUpdated += x.ThreadUpdated;
+            client.ApplicationCommandDeleted += x.ApplicationCommandDeleted;
+            client.EntitlementCreated += x.EntitlementCreated;
+            client.AutoModActionExecuted += x.AutoModActionExecuted;
+            client.AutoModRuleDeleted += x.AutoModRuleDeleted;
+            client.AutoModRuleUpdated += x.AutoModRuleUpdated;
+            client.AutoModRuleCreated += x.AutoModRuleCreated;
+            client.AuditLogCreated += x.AuditLogCreated;
+            client.WebhooksUpdated += x.WebhooksUpdated;
+            client.GuildStickerDeleted += x.GuildStickerDeleted;
+            client.GuildStickerUpdated += x.GuildStickerUpdated;
+            client.GuildStickerCreated += x.GuildStickerCreated;
+            client.SpeakerRemoved += x.SpeakerRemoved;
+            client.SpeakerAdded += x.SpeakerAdded;
+            client.RequestToSpeak += x.RequestToSpeak;
+            client.StageUpdated += x.StageUpdated;
+            client.StageEnded += x.StageEnded;
+            client.StageStarted += x.StageStarted;
+            client.ThreadMemberLeft += x.ThreadMemberLeft;
+            client.ThreadMemberJoined += x.ThreadMemberJoined;
+            client.ThreadDeleted += x.ThreadDeleted;
+            client.UserJoined += x.UserJoined;
+            client.ThreadCreated += x.ThreadCreated;
+            client.ApplicationCommandUpdated += x.ApplicationCommandUpdated;
+            client.MessageDeleted += async (message, channel) => await x.MessageDeleted(message, channel);
+            client.RoleUpdated += async (before, after) => await x.RoleUpdated(before, after);
+            client.GuildScheduledEventUserRemove += async (user, guildEvent) => await x.GuildScheduledEventUserRemove(user, guildEvent);
+            client.GuildScheduledEventUserAdd += async (user, guildEvent) => await x.GuildScheduledEventUserAdd(user, guildEvent);
+            client.GuildScheduledEventCompleted += async (guildEvent) => await x.GuildScheduledEventCompleted(guildEvent);
+            client.GuildScheduledEventCancelled += async (guildEvent) => await x.GuildScheduledEventCancelled(guildEvent);
+            client.GuildScheduledEventUpdated += async (before, after) => await x.GuildScheduledEventUpdated(before, after);
+            client.VoiceChannelStatusUpdated += async (voiceChannel, beforeStatus, afterStatus) => await x.VoiceChannelStatusUpdated(voiceChannel, beforeStatus, afterStatus);
+        }
+    }
 }

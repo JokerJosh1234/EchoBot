@@ -25,10 +25,10 @@ namespace Discord
 public abstract class TextCommand
 {
     public TextCommandBuilder command = new TextCommandBuilder();
-    protected IMessageChannel channel { get; private set; }
+    protected ICommandContext Context { get; private set; }
     public void Execute(SocketCommandContext context)
     {
-        channel = context.Channel;
+        Context = context;
         HandleExecute(context);
         Console.WriteLine($"Executed text command: {context.Message.Content.Split(' ')[0].TrimStart('?')}");
     }
@@ -36,5 +36,5 @@ public abstract class TextCommand
     public abstract void HandleExecute(SocketCommandContext context);
 
     public async Task<IUserMessage> Reply(string text = null, bool isTTS = false, Embed embed = null, RequestOptions options = null, AllowedMentions allowedMentions = null, MessageReference messageReference = null, MessageComponent components = null, ISticker[] stickers = null, Embed[] embeds = null, MessageFlags flags = MessageFlags.None) =>
-        await channel?.SendMessageAsync(text, isTTS, embed, options, allowedMentions, messageReference, components, stickers, embeds, flags);
+        await Context?.Channel?.SendMessageAsync(text, isTTS, embed, options, allowedMentions, messageReference, components, stickers, embeds, flags);
 }

@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.WebSocket;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,10 +14,17 @@ public abstract class SlashCommand
 
     public async Task Reply(string text = null, Embed[] embeds = null, bool isTTS = false, bool ephemeral = false, AllowedMentions allowedMentions = null, MessageComponent components = null, Embed embed = null, RequestOptions options = null)
     {
-        if(components != null)
+        if (components != null)
             new Context(components.Components.FirstOrDefault().Components.FirstOrDefault().CustomId, components.Components.FirstOrDefault().Components.FirstOrDefault().Type, this);
-
-        await interaction?.RespondAsync(text, embeds, isTTS, ephemeral, allowedMentions, components, embed, options);
+        try
+        {
+            await interaction?.RespondAsync(text, embeds, isTTS, ephemeral, allowedMentions, components, embed, options);
+        }
+        catch (Exception e)
+        {
+            if(e.Message.Contains("Cannot respond to an interaction after 3 seconds"))
+                await interaction?.Channel.SendMessageAsync(text, false, embed, options, allowedMentions, null, components);
+        }
     }
 
     public async Task RespondWithModal(Modal modal, RequestOptions options = null)
