@@ -17,7 +17,8 @@
 3. **Setup your bot**, instructions can be found [here](https://discordnet.dev/guides/getting_started/first-bot.html) - Do not worry about the `Connecting to Discord` step or anything after.
 4. **Download EchoBot's files** and import it into your project/application.
 5. **Navigate to the `Hub.cs` script** and modify the token param to match your bot's token. You can also change the prefix, which is used for text commands.
-6. **Have Fun!**
+6. **To use your app without hosting** (basically local hosting), you can build your application and run the .exe
+7. **Have Fun!**
 
 ## Overview
 
@@ -34,6 +35,8 @@
 `Extensions.cs`: Contains quality of life extension methods that just make things easier.
 
 `Context.cs`: Manages contexts for when a modal or select menu is created; data gets removed when it is not needed anymore. This design makes coding modals and select menus easier.
+
+The inherit class `Event` is used not as a command, but has a callback hub. It contains callbacks like ReceivedMessage (commonly known as 'onMessageCreate') and over 60 more callbacks.
 
 ## Custom Slash Command Creation
 
@@ -144,12 +147,12 @@ Commands with `< >` are placeholders for user-specific input.
 
 ## Community-Made Plugins
 
-Share and discover plugins made by the community.
+Share and discover plugins made by the community. Plugins can also be a way for developers to learn the API.
 
-| Plugin           | Description                                                      | Download                                                                              | 
-|-------------------|------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| `PlayFab Integration`          | PlayFab API integration to connect to your PlayFab title and moderate players and/or the title data                              | [link](https://github.com/JokerJosh1234/EchoBot-PlayFab)  |
-| `ChatGPT Plugin`       | Integrate ChatGPT into your bot                                | [link](https://github.com/JokerJosh1234/EchoBot-ChatGPT)     |
+| Plugin        | Description                                                      | Download                                                                              | 
+|---------------|------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| `PlayFab`     | PlayFab API integration to connect to your PlayFab title and moderate players and/or the title data | [link](https://github.com/JokerJosh1234/EchoBot-PlayFab)  |
+| `ChatGPT`     | Integrate ChatGPT into your bot                                  | [link](https://github.com/JokerJosh1234/EchoBot-ChatGPT)   |
 
 > **Note:** To submit a plugin, DM [joker.josh](https://discord.com/users/791550177780563998) on Discord.
 
