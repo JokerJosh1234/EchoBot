@@ -16,7 +16,7 @@ public class Hub
     // prefix for text commands
     private const char prefix = '?';
     // this can be found on youre bot application under 'Bot'. You may have to reset the token.
-    private const string token = "MTIwMzMyOTIzMTYzNjAxMzA4Nw.G5Ym-V.rGgob-PTsJP2zlkIqCk8XoFxFSGUpJr5tfZfFE";
+    private const string token = "";
 
     public static async Task Main(string[] args) => await new Hub().MainAsync();
 
