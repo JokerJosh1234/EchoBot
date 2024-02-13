@@ -12,7 +12,7 @@
 - [Community-Made Plugins](#community-made-plugins)
 
 ## Setup
-1. **Launch the .sln file** and the project should be running
+1. **Launch the .sln file** and the project should be running, make sure you select a script on the right or left side of the project
 2. **Navigate to the `Hub.cs` script** and modify the token param to match your bot's token. You can also change the prefix, which is used for text commands.
 3. **To use your app without hosting** (basically local hosting), you can build your application and run the .exe
 4. **Have Fun!**
