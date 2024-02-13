@@ -12,13 +12,10 @@
 - [Community-Made Plugins](#community-made-plugins)
 
 ## Setup
-1. **Create a Console Application**
-2. **Install Discord.Net**, instructions can be found [here](https://discordnet.dev/guides/getting_started/installing.html)
-3. **Setup your bot**, instructions can be found [here](https://discordnet.dev/guides/getting_started/first-bot.html) - Do not worry about the `Connecting to Discord` step or anything after.
-4. **Download EchoBot's files** and import it into your project/application.
-5. **Navigate to the `Hub.cs` script** and modify the token param to match your bot's token. You can also change the prefix, which is used for text commands.
-6. **To use your app without hosting** (basically local hosting), you can build your application and run the .exe
-7. **Have Fun!**
+1. **Launch the .sln file** and the project should be running
+2. **Navigate to the `Hub.cs` script** and modify the token param to match your bot's token. You can also change the prefix, which is used for text commands.
+3. **To use your app without hosting** (basically local hosting), you can build your application and run the .exe
+4. **Have Fun!**
 
 ## Overview
 
