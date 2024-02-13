@@ -11,6 +11,7 @@ namespace Bot.Commands.Slash
 {
     public class Ban : SlashCommand
     {
+        // this script is untested
         public Ban()
         {
             // required stuff

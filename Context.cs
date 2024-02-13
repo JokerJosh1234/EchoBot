@@ -7,7 +7,6 @@ public class Context
     {
         public ComponentType Type { get; set; }
         public SlashCommand slashCommand { get; set; }
-        public TextCommand textCommand { get; set; }
     }
 
     public static ConcurrentDictionary<string, ContextComponent> interactionContexts { get; private set; } = new ConcurrentDictionary<string, ContextComponent>();

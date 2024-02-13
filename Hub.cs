@@ -20,64 +20,30 @@ public class Hub
 
     public static async Task Main(string[] args) => await new Hub().MainAsync();
 
-
+    // can make static if needed
     public List<SlashCommand> slashCommands = new List<SlashCommand>();
     public List<TextCommand> textCommands = new List<TextCommand>();
     public List<Event> events = new List<Event>();
 
     public async Task MainAsync()
     {
-        RefreshCommands();
-
         client = new DiscordSocketClient(new DiscordSocketConfig
         {
             GatewayIntents = GatewayIntents.Guilds | GatewayIntents.GuildMessages | GatewayIntents.DirectMessages | GatewayIntents.MessageContent | GatewayIntents.GuildMembers | GatewayIntents.GuildPresences | GatewayIntents.GuildVoiceStates
         });
 
         client.Log += Log;
-        client.Ready += Client_Ready;
+        client.Ready += Ready;
         client.SlashCommandExecuted += SlashCommandHandler;
         client.MessageReceived += HandleCommandAsync;
         client.SelectMenuExecuted += SelectMenuExecuted;
         client.ModalSubmitted += ModalSubmitted;
 
-        SubscribeToEventCallbacks();
-        
+        LoadCommands();
+
         await Login();
 
         await Task.Delay(-1);
-    }
-
-    public void RefreshCommands()
-    {
-        textCommands = LoadTextCommands();
-        slashCommands = LoadSlashCommandBuilders();
-        events = LoadEvents();
-    }
-
-    private List<Event> LoadEvents()
-    {
-        var commandBuilders = new List<Event>();
-        var assembly = Assembly.GetExecutingAssembly();
-
-        foreach (var type in assembly.GetTypes())
-        {
-            if (type.IsSubclassOf(typeof(Event)) && !type.IsAbstract)
-            {
-                var constructor = type.GetConstructor(Type.EmptyTypes);
-                if (constructor != null)
-                {
-                    var commandBuilderInstance = (Event)constructor.Invoke(null);
-                    if (commandBuilderInstance != null)
-                    {
-                        commandBuilders.Add(commandBuilderInstance);
-                        Console.WriteLine($"Loaded event");
-                    }
-                }
-            }
-        }
-
-        return commandBuilders;
     }
 
     public static async Task Login()
@@ -111,22 +77,22 @@ public class Hub
             else
                 await arg.RespondAsync($"Error executing the modal. Expected ActionRow but got {slashCommandContext.Type}");
         }
+        else
+            await arg.RespondAsync("Error: Command context not found.", ephemeral: true);
     }
 
     private static async Task SelectMenuExecuted(SocketMessageComponent arg)
     {
+
         if (Context.interactionContexts.TryGetValue(arg.Data.CustomId, out Context.ContextComponent slashCommandContext))
         {
             if (slashCommandContext.Type == ComponentType.SelectMenu)
-            {
                 slashCommandContext.slashCommand.OnSelectMenu(arg);
-                Context.interactionContexts.TryRemove(arg.Data.CustomId, out _);
-            }
             else
                 await arg.RespondAsync("Error executing the select menu. Incorrect component type.");
         }
         else
-            await arg.RespondAsync("Error: Command context not found.");
+            await arg.RespondAsync("Error: Command context not found.", ephemeral: true);
     }
 
     private async Task HandleCommandAsync(SocketMessage messageParam)
@@ -180,60 +146,33 @@ public class Hub
         }
     }
 
-    private static List<SlashCommand> LoadSlashCommandBuilders()
+    public void LoadCommands()
     {
-        var commandBuilders = new List<SlashCommand>();
         var assembly = Assembly.GetExecutingAssembly();
 
-        foreach (var type in assembly.GetTypes())
-        {
-            if (type.IsSubclassOf(typeof(SlashCommand)) && !type.IsAbstract)
-            {
-                var constructor = type.GetConstructor(Type.EmptyTypes);
-                if (constructor != null)
-                {
-                    var commandBuilderInstance = (SlashCommand)constructor.Invoke(null);
-                    if (commandBuilderInstance != null)
-                    {
-                        commandBuilders.Add(commandBuilderInstance);
-                    }
-                }
-            }
-        }
+        textCommands = assembly.GetTypes()
+            .Where(type => type.IsSubclassOf(typeof(TextCommand)) && !type.IsAbstract)
+            .Select(type => Activator.CreateInstance(type) as TextCommand)
+            .Where(instance => instance != null)
+            .ToList();
 
-        return commandBuilders;
+        slashCommands = assembly.GetTypes()
+            .Where(type => type.IsSubclassOf(typeof(SlashCommand)) && !type.IsAbstract)
+            .Select(type => Activator.CreateInstance(type) as SlashCommand)
+            .Where(instance => instance != null)
+            .ToList();
+
+        events = assembly.GetTypes()
+            .Where(type => type.IsSubclassOf(typeof(Event)) && !type.IsAbstract)
+            .Select(type => Activator.CreateInstance(type) as Event)
+            .Where(instance => instance != null)
+            .ToList();
+
+        SubscribeToEventCallbacks();
     }
 
-    private static List<TextCommand> LoadTextCommands()
+    private async Task Ready()
     {
-        var commandBuilders = new List<TextCommand>();
-        var assembly = Assembly.GetExecutingAssembly();
-
-        foreach (var type in assembly.GetTypes())
-        {
-            if (type.IsSubclassOf(typeof(TextCommand)) && !type.IsAbstract)
-            {
-                var constructor = type.GetConstructor(Type.EmptyTypes);
-                if (constructor != null)
-                {
-                    var commandBuilderInstance = (TextCommand)constructor.Invoke(null);
-                    if (commandBuilderInstance != null)
-                    {
-                        commandBuilders.Add(commandBuilderInstance);
-                        Console.WriteLine($"Loaded text command {commandBuilderInstance.command.Name}");
-                    }
-                }
-            }
-        }
-
-        return commandBuilders;
-    }
-
-    private async Task Client_Ready()
-    {
-        if (slashCommands == null)
-            Console.WriteLine($"No commands found");
-
         try
         {
             List<ApplicationCommandProperties> applicationCommandProperties = new List<ApplicationCommandProperties>();
@@ -255,6 +194,8 @@ public class Hub
     public static async Task SetCustomStatus(string status) => await client.SetCustomStatusAsync(status);
     public static async Task SetGameStatus(string status, string streamUrl = null, ActivityType activity = ActivityType.Playing) => await client.SetGameAsync(status, streamUrl, activity);
 
+
+    // this is ugly pls dont look any further
     public void SubscribeToEventCallbacks()
     {
         foreach(Event x in events)

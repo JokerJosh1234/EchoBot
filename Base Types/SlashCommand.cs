@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public abstract class SlashCommand
 {
-    public SlashCommandBuilder command { get; } = new SlashCommandBuilder();
+    public SlashCommandBuilder command { get; } = new SlashCommandBuilder() { IsDMEnabled = false };
     protected SocketInteraction interaction { get; private set; }
 
     public void Execute(SocketSlashCommand command) { interaction = command; HandleExecute(command); }
@@ -22,7 +22,8 @@ public abstract class SlashCommand
         }
         catch (Exception e)
         {
-            if(e.Message.Contains("Cannot respond to an interaction after 3 seconds"))
+            // prevents cannot respond error, this may not be ideal as this doesnt support ephemeral
+            if (e.Message.Contains("Cannot respond to an interaction after 3 seconds"))
                 await interaction?.Channel.SendMessageAsync(text, false, embed, options, allowedMentions, null, components);
         }
     }
