@@ -22,6 +22,9 @@ public static class Extensions
     public static string Get(this SocketModalData modalData, string id) =>
         modalData.Components.ToList().First(x => x.CustomId == id).Value;
 
+    public static bool IsDM(this ISocketMessageChannel channel) =>
+        (channel is IDMChannel);
+
     public static SocketTextChannel Socket(this ISocketMessageChannel channel) =>
         channel as SocketTextChannel;
 }
