@@ -157,5 +157,6 @@ Share and discover plugins made by the community. Plugins can also be a way for 
 Plugins offer a platform for the community to share and distribute their creations. Examples of plugins include moderation toolkits, featuring a wide array of commands designed to enhance and streamline moderation tasks.
 
 ## Credits
+EchoBot uses Discord.Net for its functionalities.
 
 EchoBot was created by [JokerJosh](https://discord.com/users/791550177780563998)
